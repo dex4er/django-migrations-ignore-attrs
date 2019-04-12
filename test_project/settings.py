@@ -120,7 +120,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # 'django_migrations_ignore_attrs',
+    'django_migrations_ignore_attrs',
 
     'test_project',
 )
