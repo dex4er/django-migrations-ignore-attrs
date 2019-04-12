@@ -1,0 +1,54 @@
+dist: xenial
+
+language: python
+
+matrix:
+  include:
+    - python: "3.7"
+      env: DJANGO_VERSION=2.2 TEST_LINT=yes
+
+    - python: "3.7"
+      env: DJANGO_VERSION=2.1
+
+    - python: "3.7"
+      env: DJANGO_VERSION=2.0
+
+    - python: "3.6"
+      env: DJANGO_VERSION=2.2
+
+    - python: "3.5"
+      env: DJANGO_VERSION=2.2
+
+    - python: "2.7"
+      env: DJANGO_VERSION=1.11
+
+    - python: "2.7"
+      env: DJANGO_VERSION=1.10
+
+env:
+  global:
+    - PIPENV_VERBOSITY=-1
+
+install:
+  - pip install pipenv
+  - pipenv install --dev
+  - pipenv run pip install -r requirements.txt
+  - if [ "$TEST_LINT" = yes ]; then
+      pipenv run pip install -r dev-requirements.txt;
+    else
+      pipenv run pip install docutils Pygments;
+    fi
+  - pipenv run pip install Django==${DJANGO_VERSION}.*
+
+script:
+  - if [ "$TEST_LINT" = yes ]; then
+      pipenv run flake8;
+      pipenv run pylint --rcfile=setup.cfg django_migrations_ignore_attrs test_project *.py;
+      pipenv run bandit --ini setup.cfg --recursive --format screen .;
+      pipenv run doc8 *.rst;
+      pipenv run python setup.py build_sphinx;
+    fi
+  - pipenv run python manage.py test
+  - pipenv run python setup.py check
+  - pipenv run python setup.py sdist bdist_egg bdist_wheel
+  - pipenv run pip install dist/*.whl
