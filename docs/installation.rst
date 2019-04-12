@@ -20,6 +20,11 @@ Optional configuration:
 
 .. code:: python
 
-  MIGRATION_IGNORE_MODEL_ATTRS = []  # ignored attributes of model
-  MIGRATION_IGNORE_FIELD_ATTRS = []  # ignored attributes of standard fields
-  MIGRATION_IGNORE_RELATED_FIELD_ATTRS = []  # ignored attributes of ForeignKey
+  # ignored attributes of model
+  MIGRATION_IGNORE_MODEL_ATTRS = ['verbose_name', 'verbose_name_plural']
+
+  # ignored attributes of standard fields
+  MIGRATION_IGNORE_FIELD_ATTRS = ['choices', 'help_text', 'verbose_name']
+
+  # ignored attributes of ForeignKey
+  MIGRATION_IGNORE_RELATED_FIELD_ATTRS = ['related_name', 'related_query_name']
