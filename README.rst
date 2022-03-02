@@ -64,6 +64,9 @@ Optional configuration:
   # ignored attributes of standard fields
   MIGRATION_IGNORE_FIELD_ATTRS = ['choices', 'help_text', 'verbose_name']
 
+  # ignored attributes of File fields
+  MIGRATION_IGNORE_FILE_FIELD_ATTRS = ['upload_to', 'storage']
+
   # ignored attributes of ForeignKey
   MIGRATION_IGNORE_RELATED_FIELD_ATTRS = ['related_name', 'related_query_name']
 
