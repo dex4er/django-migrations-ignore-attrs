@@ -31,6 +31,7 @@ class Note(models.Model):
     date = models.DateTimeField()
     content = models.TextField(max_length=50000)
     language = models.CharField(max_length=2, choices=LANGUAGE_CHOICES)
+    attachment = models.FileField(upload_to="attachment" + CHANGED)
 
     def __str__(self):
         return self.title
